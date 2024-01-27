@@ -149,7 +149,7 @@
 
 **Example compilation command (replace the paths to `lua54.exe`, `amalg.lua` and `Damage_Numbers.lua` to yours):**
 
-`"D:\Programs\Lua Amalg\lua54.exe" "D:\Programs\Lua Amalg\amalg.lua" -o Damage_Numbers_precompiled.lua -d -s "E:\GitHub\RE-Village-Damage-Numbers\reframework\autorun\Damage_Numbers.lua" Damage_Numbers.config Damage_Numbers.customization_menu Damage_Numbers.drawing Damage_Numbers.keyframe_customization Damage_Numbers.keyframe_handler Damage_Numbers.label_customization  Damage_Numbers.screen Damage_Numbers.singletons Damage_Numbers.time Damage_Numbers.utils Damage_Numbers.player_handler Damage_Numbers.gui_handler Damage_Numbers.damage_handler`
+`"D:\Programs\Lua Amalg\lua54.exe" "D:\Programs\Lua Amalg\amalg.lua" -o Damage_Numbers_precompiled.lua -d -s "E:\GitHub\RE-Village-Damage-Numbers\reframework\autorun\Damage_Numbers.lua" Damage_Numbers.config Damage_Numbers.customization_menu Damage_Numbers.drawing Damage_Numbers.keyframe_customization Damage_Numbers.keyframe_handler Damage_Numbers.label_customization  Damage_Numbers.screen Damage_Numbers.singletons Damage_Numbers.time Damage_Numbers.utils Damage_Numbers.player_handler Damage_Numbers.game_handler Damage_Numbers.damage_handler`
 
 # Credits
 **GreenComfyTea** - creator of the mod and it's main contributor.
