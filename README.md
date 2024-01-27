@@ -131,9 +131,14 @@
 
 # How to install:
 1. Install [REFramework](https://nexusmods.com/residentevilvillage/mods/60);
-2. (Optionally) Install [REFramework Direct2D](https://nexusmods.com/residentevilvillage/mods/400);
+2. Install [REFramework Direct2D](https://nexusmods.com/residentevilvillage/mods/400);
+>**:pushpin: Windows:** Works normally.
+
+>**:pushpin: Linux:** Latest Experimental Proton seems to have it working normally as well (https://github.com/cursey/reframework-d2d/issues/5).
+
+>**:pushpin: Steam Deck:** I've seen people getting it working but I don't have the exact instructions. You will have to figure it out yourself and/or search the nexus pages for information ([REFramework](https://nexusmods.com/residentevilvillage/mods/60), [REFramework Direct2D](https://nexusmods.com/monsterhunterrise/mods/134)).
 3. Download the mod:
-    * Official release can be downloaded from [Nexus Mods](https://nexusmods.com/residentevil42023/mods/84);
+    * Official release can be downloaded from [Nexus Mods](https://www.nexusmods.com/residentevilvillage/mods/402);
     * Nightly builds are available in [this repo](https://github.com/GreenComfyTea/RE-Village-Damage-Numbers) and can contain broken functionality, debugging info on screen, bugs and might require the latest [nightly build](https://github.com/praydog/REFramework-nightly/releases) of [REFramework](https://nexusmods.com/residentevilvillage/mods/60). Use with caution!
 4. Extract the mod from the archive and place it in Resident Evil Village folder. Final path should look like this: `/Resident Evil Village BIOHAZARD VILLAGE/reframework/autorun/Damage_Numbers.lua`
 
