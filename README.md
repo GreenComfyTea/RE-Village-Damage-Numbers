@@ -126,7 +126,7 @@
 * **[Nexus Mods](https://www.nexusmods.com/residentevilvillage/mods/402)**
 
 # Requirements
-1. [REFramework](https://www.nexusmods.com/residentevilvillage/mods/60) (v1.460+);
+1. [REFramework](https://www.nexusmods.com/residentevilvillage/mods/60) (v1.470+);
 2. [REFramework Direct2D](https://nexusmods.com/residentevilvillage/mods/400) (v0.4.0+).
 
 # How to install:
