@@ -2,6 +2,7 @@ local this = {};
 
 local singletons;
 local customization_menu;
+local time;
 
 local sdk = sdk;
 local tostring = tostring;
@@ -38,6 +39,11 @@ this.game.is_cutscene_playing = false;
 this.game.is_paused = false;
 this.game.is_mercenaries = false;
 
+local pause_off_timer = nil;
+local cutscene_off_timer = nil;
+
+local timer_off_delay = 0.6;
+
 local content_timer_type_def = sdk.find_type_definition("app.ContentTimer");
 local on_pause_method = content_timer_type_def:get_method("onPause");
 
@@ -48,7 +54,7 @@ function this.update_is_cutscene()
 	local event_system_app = singletons.event_system_app;
 
 	if event_system_app == nil then
-		customization_menu.status = "[gui.update_is_cutscene] No Event System App";
+		customization_menu.status = "[game_handler.update_is_cutscene] No Event System App";
         return;
     end
 
@@ -56,16 +62,44 @@ function this.update_is_cutscene()
 	local is_event_playing = is_running_event_method:call(event_system_app, false);
 
 	if is_player_event_playing == nil then
-		customization_menu.status = "[gui.update_is_cutscene] No Is Player Event Playing";
+		customization_menu.status = "[game_handler.update_is_cutscene] No Is Player Event Playing";
 		is_player_event_playing = false;
 	end
 
 	if is_event_playing == nil then
-		customization_menu.status = "[gui.update_is_cutscene] No Is Event Playing";
+		customization_menu.status = "[game_handler.update_is_cutscene] No Is Event Playing";
 		is_event_playing = false;
 	end
 
-	this.game.is_cutscene_playing = is_player_event_playing or is_event_playing;
+	local is_cutscene_playing = is_player_event_playing or is_event_playing;
+
+	-- Cutscene
+	if is_cutscene_playing then
+		this.game.is_cutscene_playing = true;
+		time.remove_delay_timer(pause_off_timer);
+		pause_off_timer = nil;
+		return;
+	end
+
+	-- Game No Cutscene, State No Cutscene
+	if not this.game.is_cutscene_playing then
+		time.remove_delay_timer(cutscene_off_timer);
+		cutscene_off_timer = nil;
+		return;
+	end
+
+	-- Game No Cutscene, State Cutscene, Timer is On
+	if cutscene_off_timer ~= nil then
+		return;
+	end
+
+
+	-- Game No Cutscene, State Cutscene, Timer is Off
+	cutscene_off_timer = time.new_delay_timer(function()
+		this.game.is_cutscene_playing = false;
+		cutscene_off_timer = nil;
+	end,
+	timer_off_delay);
 end
 
 function this.update_is_mercenaries()
@@ -77,21 +111,51 @@ function this.update()
 	this.update_is_mercenaries();
 end
 
-function this.on_pause(is_paused)
-	if is_paused ~= nil then
-		this.game.is_paused = is_paused;
+function this.on_pause(is_paused_int)
+	if is_paused_int == nil then
+		customization_menu.status = "[game_handler.on_pause] No Is Paused Int";
+		return;
 	end
-end
 
+	local is_paused = (is_paused_int & 1) == 1;
+
+	-- Pause
+	if is_paused then
+		this.game.is_paused = true;
+		time.remove_delay_timer(pause_off_timer);
+		pause_off_timer = nil;
+		return;
+	end
+
+	-- Game No Pause, State No Pause
+	if not this.game.is_paused then
+		time.remove_delay_timer(pause_off_timer);
+		pause_off_timer = nil;
+		return;
+	end
+
+	-- Game No Pause, State Pause, Timer is On
+	if pause_off_timer ~= nil then
+		return;
+	end
+
+	-- Game No Pause, State Pause, Timer is Off
+	pause_off_timer = time.new_delay_timer(function()
+		this.game.is_paused = false;
+		pause_off_timer = nil;
+	end,
+	timer_off_delay);
+end
 
 function this.init_module()
 	singletons = require("Damage_Numbers.singletons");
 	customization_menu = require("Damage_Numbers.customization_menu");
+	time = require("Damage_Numbers.time");
 
 	sdk.hook(on_pause_method, function(args)
 
-		local is_paused = (sdk.to_int64(args[3]) & 1) == 1;
-		this.on_pause(is_paused);
+		local is_paused_int = sdk.to_int64(args[3]);
+		this.on_pause(is_paused_int);
 
 	end, function(retval)
 		return retval;
