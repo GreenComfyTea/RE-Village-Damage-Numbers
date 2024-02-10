@@ -82,7 +82,7 @@ function this.remove_delay_timer(delay_timer)
 		return;
 	end
 
-	this.delay_timer_list[delay_timer.callback] = nil; 
+	this.delay_timer_list[delay_timer.callback] = nil;
 end
 
 function this.init_global_timers()
